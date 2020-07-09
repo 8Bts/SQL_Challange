@@ -10,7 +10,7 @@ SELECT name FROM world
 */
 
 SELECT name FROM world WHERE continent = 'Europe' AND (gdp/population) >
-(SELECT gdp/population FROM world WHERE name = 'United Kingdom')
+(SELECT gdp/population FROM world WHERE name = 'United Kingdom');
 
 /* 3.
  List the name and continent of countries in the continents containing either
@@ -18,7 +18,7 @@ SELECT name FROM world WHERE continent = 'Europe' AND (gdp/population) >
 */
 
 SELECT name, continent FROM world WHERE continent IN
- (SELECT continent FROM world WHERE name = 'Argentina' OR name = 'Australia') ORDER BY name
+ (SELECT continent FROM world WHERE name = 'Argentina' OR name = 'Australia') ORDER BY name;
 
 /* 4.
  Which country has a population that is more than Canada but less than Poland?
@@ -27,7 +27,7 @@ SELECT name, continent FROM world WHERE continent IN
 
 SELECT name, population FROM world
  WHERE population > (SELECT population FROM world WHERE name = 'Canada') AND
-  population < (SELECT population FROM world WHERE name = 'Poland')
+  population < (SELECT population FROM world WHERE name = 'Poland');
 
 /* 5.
  Show the name and the population of each country in Europe.
@@ -37,7 +37,7 @@ SELECT name, population FROM world
 SELECT name, CONCAT(
  ROUND(
   population / (SELECT population FROM world WHERE name = 'Germany') * 100, 0), '%')
-   FROM world WHERE continent = 'Europe'
+   FROM world WHERE continent = 'Europe';
 
 /* 6.
  Which countries have a GDP greater than every country in Europe?
@@ -45,7 +45,7 @@ SELECT name, CONCAT(
 */
 
 SELECT name FROM world WHERE gdp > ALL(
- SELECT gdp FROM world WHERE continent = 'Europe' AND gdp > 0)
+ SELECT gdp FROM world WHERE continent = 'Europe' AND gdp > 0);
 
 /* 7.
  Find the largest country (by area) in each continent,
@@ -53,13 +53,13 @@ SELECT name FROM world WHERE gdp > ALL(
 */
 
 SELECT continent, name, area FROM world x WHERE area >= ALL
-  (SELECT area FROM world y WHERE y.continent=x.continent AND area>0)
-
+  (SELECT area FROM world y WHERE y.continent=x.continent AND area>0);
 /* 8.
  List each continent and the name of the country that comes first alphabetically.
 */
 
-SELECT DISTINCT continent, name FROM world x WHERE name = (SELECT name FROM world y WHERE x.continent = y.continent ORDER BY name LIMIT 1) 
+SELECT DISTINCT continent, name FROM world x
+ WHERE name = (SELECT name FROM world y WHERE x.continent = y.continent ORDER BY name LIMIT 1);
 
 /* 9.
  Find the continents where all countries have a population <= 25000000.
@@ -68,7 +68,7 @@ SELECT DISTINCT continent, name FROM world x WHERE name = (SELECT name FROM worl
 */
 
 SELECT name, continent, population FROM world x WHERE 25000000 >=
-ALL(SELECT population FROM world y WHERE x.continent = y.continent)
+ALL(SELECT population FROM world y WHERE x.continent = y.continent);
 
 /* 10.
  Some countries have populations more than three times that of
@@ -78,4 +78,4 @@ ALL(SELECT population FROM world y WHERE x.continent = y.continent)
 
 SELECT name, continent FROM world x WHERE population/3 >= ALL
 (SELECT population FROM world y
- WHERE x.continent = y.continent AND NOT x.name = y.name)
+ WHERE x.continent = y.continent AND NOT x.name = y.name);

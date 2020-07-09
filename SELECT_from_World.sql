@@ -26,53 +26,53 @@ SELECT name, population/1000000 AS population_mlns
  Show the name and population for France, Germany, Italy
 */
 
-SELECT name, population FROM world WHERE name IN ('France', 'Germany', 'Italy')
+SELECT name, population FROM world WHERE name IN ('France', 'Germany', 'Italy');
 
 /* 6.
  Show the countries which have a name that includes the word 'United'
 */
 
-SELECT name FROM world WHERE name LIKE '%United%'
+SELECT name FROM world WHERE name LIKE '%United%';
 
 /* 7.
  Show the countries that are big by area or big by population.
  Show name, population and area.
 */
 
-SELECT name, population, area FROM world WHERE population > 250000000 OR area > 3000000
+SELECT name, population, area FROM world WHERE population > 250000000 OR area > 3000000;
 
 /* 8.
  Show the countries that are big by area (more than 3 million) or big by population (more than 250 million) but not both. Show name, population and area.
 */
 
-SELECT name, population, area FROM world WHERE population > 250000000 XOR area > 3000000
+SELECT name, population, area FROM world WHERE population > 250000000 XOR area > 3000000;
 
 /* 9.
  For South America show population in millions and GDP in billions both to 2 decimal places.
 */
 
 SELECT name, ROUND(population/1000000, 2) AS populations, ROUND(GDP/1000000000, 2) AS GDP
- FROM world WHERE continent = 'South America'
+ FROM world WHERE continent = 'South America';
 
 /* 10.
  Show per-capita GDP for the trillion dollar countries to the nearest $1000.
 */
 
 SELECT name, ROUND(GDP/population, -3) AS per_capita_GPD
- FROM world WHERE GDP > 1000000000000
+ FROM world WHERE GDP > 1000000000000;
 
 /* 11.
  Show the name and capital where the name and the capital have the same number of characters.
 */
 
-SELECT name, capital FROM world WHERE LENGTH(name) = LENGTH(capital)
+SELECT name, capital FROM world WHERE LENGTH(name) = LENGTH(capital);
 
 /* 12.
  Show the name and the capital where the first letters of each match. Don't include countries where the name and the capital are the same word.
 */
 
 SELECT name, capital FROM world
- WHERE LEFT(name, 1) = LEFT(capital, 1) AND name <> capital
+ WHERE LEFT(name, 1) = LEFT(capital, 1) AND name <> capital;
 
 /* 13.
  Find the country that has all the vowels and no spaces in its name.
@@ -80,4 +80,4 @@ SELECT name, capital FROM world
 
  SELECT name FROM world WHERE name LIKE '%a%' AND name LIKE '%e%' AND
   name LIKE '%i%' AND name LIKE '%o%' AND name LIKE '%u%'
-  AND name NOT LIKE '% %'
+  AND name NOT LIKE '% %';
